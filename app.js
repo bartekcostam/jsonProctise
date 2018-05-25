@@ -1,11 +1,17 @@
-var req = new XMLHttpRequest();
+function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("node.json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
 
-req.open("GET", "/node.json", false);
-
-req.send(null);
-
-console.log(JSON.parse(req.responseText));
-
-var 
-
-
+//usage:
+readTextFile("C:/Users/User/Downloads/jsonTest/jsonProctise/node.json", function(text){
+    var data = JSON.parse(text);
+    console.log(data);
+});
